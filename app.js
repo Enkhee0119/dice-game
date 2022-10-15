@@ -58,7 +58,7 @@ document.querySelector(".btn-hold").addEventListener("click", function () {
     document.getElementById("score-" + activePlayer).textContent =
       scores[activePlayer];
     // Уг тоглогчийн хожсон эсэхийг шалгаж нэрийг нь "Winner" болгох
-    if (scores[activePlayer] >= 10) {
+    if (scores[activePlayer] >= 100) {
       // Тоглоомыг дууссан төлөвт оруулна
       isGameOver = true;
       document.getElementById("name-" + activePlayer).textContent = "Winner";
