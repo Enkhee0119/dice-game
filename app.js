@@ -16,7 +16,7 @@ document.getElementById("current-1").textContent = 0;
 //----------------------------<img src="dice-5.png" alt="Dice" class="dice" />.
 var diceDom = document.querySelector(".dice");
 diceDom.style.display = "none";
-// Shoo shideh eventListener ashiglasan
+// ----------------------------------------------------------------------------------Shoo shideh eventListener
 document.querySelector(".btn-roll").addEventListener("click", function () {
   var diceNumber = Math.floor(Math.random() * 6) + 1;
   diceDom.style.display = "block";
@@ -27,17 +27,40 @@ document.querySelector(".btn-roll").addEventListener("click", function () {
     roundScore += diceNumber;
     document.getElementById("current-" + activePlayer).textContent = roundScore;
   } else {
-    // Тоглогчийн ээлжиндээ цуглуулсан оноог 0 болгох
-    roundScore = 0;
-    document.getElementById("current-" + activePlayer).textContent = roundScore;
-    // Идэвхитэй тоглогчийн ээлжийг солих
-    if (activePlayer == 0) activePlayer = 1;
-    else activePlayer = 0;
-    // Гурвалсан оператор ашиглаж бичвэл: activePlayer == 0 ? (activePlayer = 1) : (activePlayer = 0);
-    // Улаан цэгийг идэвхитэй тоглогчид шилжүүлэх
-    document.querySelector(".player-0-panel").classList.toggle("active");
-    document.querySelector(".player-1-panel").classList.toggle("active");
-    // Шоог түр алга болгох
-    diceDom.style.display = "none";
+    daraagiinToglogcruuShiljih();
   }
 });
+// ---------------------------------------------------------------------------Hold товч дарах eventListener
+document.querySelector(".btn-hold").addEventListener("click", function () {
+  // Hold товч дарахад оноог үндсэн оноонд хадгалах
+  scores[activePlayer] = scores[activePlayer] + roundScore;
+  document.getElementById("score-" + activePlayer).textContent =
+    scores[activePlayer];
+  // Уг тоглогчийн хожсон эсэхийг шалгаж нэрийг нь "Winner" болгох
+  if (scores[activePlayer] >= 10) {
+    document.getElementById("name-" + activePlayer).textContent = "Winner";
+    document
+      .querySelector(".player-" + activePlayer + "-panel")
+      .classList.add("winner");
+    document
+      .querySelector(".player-" + activePlayer + "-panel")
+      .classList.remove("active");
+  } else {
+    //   Идэвхитэй тоглогчийг шилжүүлэх функц дуудах
+    daraagiinToglogcruuShiljih();
+  }
+});
+function daraagiinToglogcruuShiljih() {
+  // Тоглогчийн ээлжиндээ цуглуулсан оноог 0 болгох
+  roundScore = 0;
+  document.getElementById("current-" + activePlayer).textContent = roundScore;
+  // Идэвхитэй тоглогчийн ээлжийг солих
+  activePlayer == 0 ? (activePlayer = 1) : (activePlayer = 0);
+  // Улаан цэгийг идэвхитэй тоглогчид шилжүүлэх
+  document.querySelector(".player-0-panel").classList.toggle("active");
+  document.querySelector(".player-1-panel").classList.toggle("active");
+  // Шоог түр алга болгох
+  diceDom.style.display = "none";
+}
+// ---------------------------------------------------------------------------New game товч дарах eventListener
+document.querySelector(".btn-new").addEventListener("click", function () {});
